@@ -9,7 +9,7 @@ jobs:
         id: hello
         uses: diegotony/diagrams-action@main
         with:
-          args: 'diagrams diagram.py'
+          args: python diagram.py
       # Use the output from the `hello` step
       - name: Get Files
         run: ls -lh
