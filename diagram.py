@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # diagram.py
 from diagrams import Diagram
 from diagrams.aws.compute import EC2
