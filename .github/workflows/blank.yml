@@ -1,11 +1,8 @@
 on: [push]
 
 jobs:
-  semantic-release:
-    uses: diegotony/gh-pipelines/.github/workflows/main-module-terraform.yml@main
-    secrets:
-      GH_TOKEN: ${{ secrets.GH_TOKEN }}
-
+  test:
+    uses: diegotony/gh-pipelines/.github/workflows/python-plugin-diagrams.yml@main
 #       - uses: actions/checkout@v2
 #       - name: Hello world action step
 #         id: hello
