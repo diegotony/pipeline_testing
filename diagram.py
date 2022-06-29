@@ -5,5 +5,11 @@ from diagrams.aws.compute import EC2
 from diagrams.aws.database import RDS
 from diagrams.aws.network import ELB
 
-with Diagram("test", show=False):
+# graph_attr = {
+#     "fontsize": "45",
+#     "bgcolor": "transparent"
+# }
+
+with Diagram("Test",filename="diagram", show=False, outformat="jpg"):
+    ELB("lb") >> EC2("web") >> RDS("userdb")
     ELB("lb") >> EC2("web") >> RDS("userdb")

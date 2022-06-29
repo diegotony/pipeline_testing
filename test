@@ -1,0 +1,10 @@
+digraph test {
+	graph [fontcolor="#2D3436" fontname="Sans-Serif" fontsize=15 label=test nodesep=0.60 pad=2.0 rankdir=LR ranksep=0.75 splines=ortho]
+	node [fixedsize=true fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13 height=1.4 imagescale=true labelloc=b shape=box style=rounded width=1.4]
+	edge [color="#7B8894"]
+	"2cc0bac04c714537b6eee52bb16efded" [label=lb height=1.9 image="/home/diegotony/.local/lib/python3.9/site-packages/resources/aws/network/elastic-load-balancing.png" shape=none]
+	"19669f7cc73e471581a1262705291f35" [label=web height=1.9 image="/home/diegotony/.local/lib/python3.9/site-packages/resources/aws/compute/ec2.png" shape=none]
+	"2cc0bac04c714537b6eee52bb16efded" -> "19669f7cc73e471581a1262705291f35" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	cd4509d038ee4d0098deaa60b3299fb2 [label=userdb height=1.9 image="/home/diegotony/.local/lib/python3.9/site-packages/resources/aws/database/rds.png" shape=none]
+	"19669f7cc73e471581a1262705291f35" -> cd4509d038ee4d0098deaa60b3299fb2 [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+}
