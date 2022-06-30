@@ -12,7 +12,6 @@ from diagrams.aws.network import ELB
 # }
 
 
-
 with Diagram("Test",filename="diagram", show=False):
     ELB("lb") >> EC2("web") >> RDS("userdb")
     ELB("lb") >> EC2("web") >> RDS("userdb")
