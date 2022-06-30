@@ -11,7 +11,6 @@ from diagrams.aws.network import ELB
 #     "bgcolor": "transparent"
 # }
 
-
 with Diagram("Test",filename="diagram", show=False):
     ELB("lb") >> EC2("web") >> RDS("userdb")
     ELB("lb") >> EC2("web") >> RDS("userdb")
