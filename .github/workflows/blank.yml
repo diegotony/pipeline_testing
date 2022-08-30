@@ -2,7 +2,7 @@ on: [push]
 
 jobs:
   test:
-    uses: diegotony/gh-pipelines/.github/workflows/python-plugin-diagrams.yml@main
+    uses: diegotony/gh-pipelines/.github/workflows/npm-wf-test.yml@main
 
 #       - uses: actions/checkout@v2
 
