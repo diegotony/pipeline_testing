@@ -3,6 +3,8 @@ on: [push]
 jobs:
   test:
     uses: diegotony/gh-pipelines/.github/workflows/build-node-app.yml@main
+    with:
+      node_version: 14
     
 #       - uses: actions/checkout@v2
 
