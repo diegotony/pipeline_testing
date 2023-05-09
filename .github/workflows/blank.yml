@@ -18,7 +18,7 @@ jobs:
 
       - name : Check Changes in Dirs
         run: |
-          DIRS=($(git diff --name-only HEAD^))
+          DIRS=($(git diff --name-only HEAD))
           echo "${DIRS[*]}"
           echo $EXCLUDE_FILES
 
