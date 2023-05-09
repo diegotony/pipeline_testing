@@ -1,19 +1,35 @@
 on: [push]
 
 jobs:
-  test:
-    uses: diegotony/gh-pipelines/.github/workflows/build-node-app.yml@main
-    with:
-      node_version: 14
-    
-#       - uses: actions/checkout@v2
+  check-links:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-#       - name: Hello world action step
-#         id: hello
-#         uses: diegotony/diagrams-action@main
-#         with:
-#           args: python3 diagram.py
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
 
-#       # Use the output from the `hello` step
-#       - name: Get Files
-#         run: ls -lh
+      # - name: List all changed files
+      #   run: |
+      #     for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+      #       echo "$file was changed"
+      #     done
+
+      - name : Check Changes in Dirs
+        run: |
+          git status
+          # DIRS=($(ls -d */))
+          # echo "${DIRS[*]}"
+          git status
+          # for dir in $DIRS
+          # do
+          #   echo "${'$dir'[@]}"
+          # done
+      # # - name: Init
+      #   run: |
+      #     terraform init
+
+      # - name: Plan
+      #   run: |
+      #     terraform plan
