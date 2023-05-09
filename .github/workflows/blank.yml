@@ -18,27 +18,21 @@ jobs:
 
       - name : Check Changes in Dirs
         run: |
-          DIRS=($(git diff --name-only HEAD))
-          echo "${DIRS[*]}"
-          echo $EXCLUDE_FILES
-
+          DIRS="$(git diff --name-status main  | sed 's/M//' | sed 's/\s/,/')"
+          # echo ${DIRS:1}
+          DIRS="${DIRS:1}"
+          DIRS=($(echo ${DIRS} | tr "," "\n"))
           echo "here"
           for file in ${EXCLUDE_FILES[@]}; do
-            echo "$file"
             DIRS=("${DIRS[@]/$file}")
           done
-          # echo "The real"
-          echo "the ok dir"
-          echo "${DIRS[*]}"
-
           # TODO : check if is dir and set conditions in pipelines like aws and s3 in other word tf vars
-          # git status
-          # for dir in $DIRS
-          # do
-          #   echo "${'$dir'[@]}"
-          # done
+
+          echo "${DIRS[*]}"
+          echo "${#DIRS[@]}"
         env: 
-          EXCLUDE_FILES: ".github/workflows/blank.yml README.md" 
+          EXCLUDE_FILES: ".github/workflows/blank.yml README.md"
+          MAIN_BRANCH: "main"
       # # - name: Init
       #   run: |
       #     terraform init
