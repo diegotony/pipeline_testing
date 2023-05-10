@@ -19,6 +19,10 @@ jobs:
       - name : Check Changes in Dirs
         run: |
           DIRS="$(git diff --name-status main  | sed 's/M//' | sed 's/\s/,/')"
+          TFSTATE_BUCKET="" # tf_environments
+          TFSTATE_KEY="" #  "terraform.tfstate"
+          TFSTATE_REGION="" # us-east-1
+
           # echo ${DIRS:1}
           DIRS="${DIRS:1}"
           DIRS=($(echo ${DIRS} | tr "," "\n"))
@@ -28,8 +32,12 @@ jobs:
           done
           # TODO : check if is dir and set conditions in pipelines like aws and s3 in other word tf vars
 
-          echo "${DIRS[*]}"
-          echo "${#DIRS[@]}"
+          for file in ${DIRS[@]}; do
+            echo "$file"
+          done
+
+          # echo "${DIRS[*]}"
+          # echo "${#DIRS[@]}"
         env: 
           EXCLUDE_FILES: ".github/workflows/blank.yml README.md"
           MAIN_BRANCH: "main"

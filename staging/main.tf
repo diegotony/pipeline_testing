@@ -1,7 +1,6 @@
-variable "holi_stg" {
-  default = "holi stg"
-}
-
-output "name" {
-  value = var.holi_stg
+resource "random_pet" "server" {
+  keepers = {
+    # Generate a new pet name each time we switch to a new AMI id
+    test = local.test
+  }
 }
