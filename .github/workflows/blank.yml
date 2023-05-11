@@ -22,7 +22,8 @@ jobs:
         run: |
           # TODO
           # not control changes with this git diff, maybe monitor with dirs
-          DIRS="$(git diff  --name-only  ${{ github.event.before }} ${{ github.event.after }} | sed 's/M//' | sed 's/\s/,/')"
+          # DIRS="$(git diff  --name-only  ${{ github.event.before }} ${{ github.event.after }} | sed 's/M//' | sed 's/A//' | sed 's/D//' | sed 's/\s/,/')"
+          DIRS="$(git diff --name-status main | sed 's/M//' | sed 's/A//' | sed 's/D//' | sed 's/\s/,/')"
           TFSTATE_BUCKET="" # tf_environments
           TFSTATE_KEY="" #  "terraform.tfstate"
           TFSTATE_REGION="" # us-east-1
@@ -34,11 +35,17 @@ jobs:
           for file in ${EXCLUDE_FILES[@]}; do
             DIRS=("${DIRS[@]/$file}")
           done
-          # TODO : check if is dir and set conditions in pipelines like aws and s3 in other word tf vars
-
+          
           for file in ${DIRS[@]}; do
             echo "$file"
           done
+
+          # OUtput values
+          # regex to remove file in path ([\w])+(\.([\w])+)
+          # TODO remove repeat paths
+          # TODO validate that only uniques paths
+          # TODO function for terraform init with TF vars
+          # TODO : check if is dir and set conditions in pipelines like aws and s3 in other word tf vars
 
           # echo "${DIRS[*]}"
           # echo "${#DIRS[@]}"
