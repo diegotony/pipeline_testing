@@ -6,6 +6,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
@@ -20,7 +22,7 @@ jobs:
         run: |
           # TODO
           # not control changes with this git diff, maybe monitor with dirs
-          DIRS="$(git diff  --name-only -r HEAD^1 HEAD  | sed 's/M//' | sed 's/\s/,/')"
+          DIRS="$(git diff  --name-only  ${{ github.event.before }} ${{ github.event.after }} | sed 's/M//' | sed 's/\s/,/')"
           TFSTATE_BUCKET="" # tf_environments
           TFSTATE_KEY="" #  "terraform.tfstate"
           TFSTATE_REGION="" # us-east-1
