@@ -12,11 +12,11 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
 
-      # - name: List all changed files
-      #   run: |
-      #     for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-      #       echo "$file was changed"
-      #     done
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-region: us-east-1
+
 
       - name : Check Changes in Dirs
         run: |
@@ -24,21 +24,31 @@ jobs:
           # not control changes with this git diff, maybe monitor with dirs
           # DIRS="$(git diff  --name-only  ${{ github.event.before }} ${{ github.event.after }} | sed 's/M//' | sed 's/A//' | sed 's/D//' | sed 's/\s/,/')"
           DIRS="$(git diff --name-status main | sed 's/M//' | sed 's/A//' | sed 's/D//' | sed 's/\s/,/')"
-          TFSTATE_BUCKET="" # tf_environments
-          TFSTATE_KEY="" #  "terraform.tfstate"
-          TFSTATE_REGION="" # us-east-1
+          TFSTATE_BUCKET="constant1n396-main-us-east-2-terraform-state" # tf_environments
+          TFSTATE_KEY="production/terraform.tfstate" #  "terraform.tfstate"
+          echo "holi"
+          ls
 
-          # echo ${DIRS:1}
-          DIRS="${DIRS:1}"
-          DIRS=($(echo ${DIRS} | tr "," "\n"))
-          echo "here"
-          for file in ${EXCLUDE_FILES[@]}; do
-            DIRS=("${DIRS[@]/$file}")
-          done
+          # DIRS="${DIRS:1}"
+          # DIRS=($(echo ${DIRS} | tr "," "\n"))
+          # for file in ${EXCLUDE_FILES[@]}; do
+          #   DIRS=("${DIRS[@]/$file}")
+          # done
           
-          for file in ${DIRS[@]}; do
-            echo "$file"
-          done
+          # for file in ${DIRS[@]}; do
+          #   echo "$file"
+          # done
+
+          echo "enter to dir"
+          cd production/
+          echo "Initialization"
+          terraform init
+          echo "Planning"
+          terraform plan
+          echo "Applyng"
+          terraform apply -auto-approve 
+          # echo ${DIRS:1}
+
 
           # OUtput values
           # regex to remove file in path ([\w])+(\.([\w])+)
@@ -52,10 +62,3 @@ jobs:
         env: 
           EXCLUDE_FILES: ".github/workflows/blank.yml README.md"
           MAIN_BRANCH: "main"
-      # # - name: Init
-      #   run: |
-      #     terraform init
-
-      # - name: Plan
-      #   run: |
-      #     terraform plan
